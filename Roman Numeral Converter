@@ -1,0 +1,24 @@
+function convertToRoman(num) {
+let roman = ["I","IV","V","IX","X","XL","L","XC","C","CD","D","CM","M"];
+let arabic = [1,4,5,9,10,40,50,90,100,400,500,900,1000];
+let sol = "";
+
+function check(a){
+for (let x = arabic.length-1;x>=0;x--){
+  if (num>=arabic[x]){
+    sol +=roman[x]
+    num -= arabic[x]
+    if (num > 0 ){
+      check(num)
+    }
+    break;
+  }
+}
+
+}check(num)
+
+console.log(sol)
+ return sol;
+}
+
+convertToRoman(36);
