@@ -1,0 +1,78 @@
+function checkCashRegister(price, cash, cid) {
+  let change = Math.round((cash-price)*100);
+  let currency = [1,5,10,25,100,500,1000,2000,10000];
+  let pid = [];
+  let i = 0
+  let count = 0;
+  let outs = [];
+  let counts = [];
+  let sol = [];
+let prev = 0;
+let sum = 0 ;
+
+
+  for (let i = 0 ; i < cid.length;i++){
+let c = Math.round(cid[i][1]*100)
+pid.push([cid[i][0],c])} // this is rounding the cid values
+
+for (let i = 0 ; i < cid.length ; i++){sum +=cid[i][1]} // this is the sum of all the cash id
+
+function check(){
+  prev = i
+for (let n = currency.length-1;n>=0;n--){
+  if (change>=currency[n]&&pid[n][1]>0){
+    i = n
+    break; }}
+    ++count
+    pid[i][1] -= currency[i]
+    change -= [currency[i]]
+    if(prev>i){count=1}
+outs.push([pid[i][0],count*currency[i]/100])
+counts.push(count)
+
+if (i==0&&change>pid[0][1]){
+  outs = ["error"];
+  return
+  }
+
+    if (change>0) {check()}
+    
+    }
+
+check()
+
+
+for (let i = 0 ; i <= counts.length ; i++){
+if (counts[i]>=counts[i+1]||i==counts.length-1){sol.push(outs[i])}} 
+//above is pushing the final values to sol
+if (outs[0]=="error"){sol = [];} // this will push and empty as sol if INSUFFICIENT_FUNDS
+
+let orcha = cash-price
+let ob = {
+ "O" : {
+status: "OPEN",
+change : sol},
+"C" : {
+status: "CLOSED",
+change : cid},
+"I" : {
+status: "INSUFFICIENT_FUNDS",
+change : sol}
+}
+
+if (sum>orcha&&outs!="error"){return ob.O}
+if (sum==orcha){return ob.C}
+if (outs=="error"){return ob.I}
+
+
+  return change;
+}
+
+
+
+
+
+
+//checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
+//checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
+checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])
